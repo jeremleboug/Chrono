@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'Nanum';  /* Nom de la police */
+    src: url('font/Nanum_Gothic/NanumGothic-Regular.ttf') format('truetype');  /* Chemin vers le fichier de police */
+    /* Ajoutez des déclarations supplémentaires si nécessaire, comme font-weight et font-style */
+}
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 104px; /* Remplacez la valeur par celle souhaitée */
+}
+
+body {
+    background-color: rgb(36, 36, 36);
+    font-family: 'Nanum', sans-serif;
+}
+#timer{
+    color: white;
+    text-align: center;
+    font-size: 45px; /* Remplacez la valeur par celle souhaitée */
+}
+#chrono1 {
+    background-color: rgba(101, 101, 101, 0.375);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Ajoute une ombre */
+    border-radius: 10px; /* Arrondit les bords */
+    border: 1px solid white; /* Ajoute une bordure blanche */
+    width: 50%;
+    margin: 0 auto; /* Centre la position horizontalement */
+}
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+
+.btn {
+    margin: 0 auto; /* Centre la position horizontalement */
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    background: linear-gradient(90deg, #0066CC 0%, #c500cc 100%);
+    padding: 10px 30px;
+    border: none;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0);
+    border-radius: 50px;
+    transition: 1000ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transition: 1000ms;
+    padding: 10px 50px;
+    transform: translateY(-10px);
+    background: linear-gradient(90deg, #0066CC 0%, #c500cc 100%);
+    color: #ffffff;
+    border: solid 2px #0066cc;
+}
+
