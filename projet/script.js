@@ -2,38 +2,40 @@ document.addEventListener('DOMContentLoaded', function() {
     var timerElement = document.getElementById('timer');
     var startBtn = document.getElementById('btnstart');
 
-    var hours = 0;
-    var minutes = 0;
-    var seconds = 0;
-    var milliseconds = 0;
-    var timerInterval;
+    var startTime = null;
+    var running = false;
+    var pausedTime = 0;
 
     startBtn.addEventListener('click', function() {
-        if (startBtn.textContent === 'START') {
-            startBtn.textContent = 'STOP';
-            timerInterval = setInterval(updateTimer, 10); // Mis à jour pour exécuter toutes les 10 millisecondes
-        } else {
+        if (running) {
+            // Arrêter le chronomètre
+            running = false;
+            pausedTime += Date.now() - startTime;
             startBtn.textContent = 'START';
-            clearInterval(timerInterval);
+        } else {
+            // Démarrer le chronomètre
+            running = true;
+            startTime = Date.now();
+            requestAnimationFrame(updateTimer);
+            startBtn.textContent = 'STOP';
         }
     });
 
     function updateTimer() {
-        milliseconds += 10; // Augmente de 10 millisecondes
-        if (milliseconds === 1000) {
-            seconds++;
-            milliseconds = 0;
-        }
-        if (seconds === 60) {
-            minutes++;
-            seconds = 0;
-        }
-        if (minutes === 60) {
-            hours++;
-            minutes = 0;
-        }
+        if (!running) return;
+
+        var currentTime = Date.now();
+        var elapsed = currentTime - startTime + pausedTime;
+
+        var milliseconds = elapsed % 1000;
+        var seconds = Math.floor((elapsed / 1000) % 60);
+        var minutes = Math.floor((elapsed / (1000 * 60)) % 60);
+        var hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
+
         var time = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds) + '.' + formatMilliseconds(milliseconds);
         timerElement.textContent = time;
+
+        requestAnimationFrame(updateTimer);
     }
 
     function formatTime(time) {
