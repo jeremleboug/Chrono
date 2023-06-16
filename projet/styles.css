@@ -3,6 +3,7 @@
     src: url('font/Nanum_Gothic/NanumGothic-Regular.ttf') format('truetype');  /* Chemin vers le fichier de police */
     /* Ajoutez des déclarations supplémentaires si nécessaire, comme font-weight et font-style */
 }
+
 h1 {
     color: white;
     text-align: center;
@@ -18,6 +19,7 @@ body {
     text-align: center;
     font-size: 45px; /* Remplacez la valeur par celle souhaitée */
 }
+
 #chrono1 {
     background-color: rgba(101, 101, 101, 0.375);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Ajoute une ombre */
@@ -26,6 +28,17 @@ body {
     width: 50%;
     margin: 0 auto; /* Centre la position horizontalement */
 }
+.tour-timer {
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    /* Ajoutez d'autres styles souhaités */
+}
+.tour{
+    color: white;
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
 
 .btn {
