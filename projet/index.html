@@ -1,24 +1,318 @@
 <!DOCTYPE html>
 <html>
+    <div class="bloc"></div>
 <head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: auto; /* Ajout de l'attribut overflow */
+        }
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+        #content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
     <title>chrono</title>
     <link rel="icon" type="image/png" href="images/icone.png">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="script.js"></script>
 </head>
-<body>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/7wN7X1iWmwLoHlL77P1D0Z?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    <h1>CHRONO</h1>
-    <div id="chrono1">
-        <br>
-        <div id="tour" class="tour">    tour : 0</div><br><br><br><br>
-        <div id="timer" class="timer">00:00:00</div>
-        <br>
-        <div id="tour_timer" class="tour-timer"></div><br>
-        <button id="btnstart" class="btn">START</button>
-        <br>
-        
+<body id="body" class="body">
+    <video id="video-background" src="video/video_disque.mp4" autoplay muted loop></video>
+    <div id="content">
+        <!-- Contenu de votre page -->
+    <img src="images/menu.png" alt="bouton menu" class="menu_btn">
+    <div class="sidebar">
+        <ul style="list-style-type: none;">
+            <div id="conteneur" style="display:flex; align-items:center;"><script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_fb50dri2.json"  background="transparent"  speed="1"  style="width: 100px; height: 100px;" hover   autoplay></lottie-player>
+            <h3 id="horloge" style="font-size: 34px;">horloge</h3>   </div>
+            <li>
+                <label>
+                    <input type="checkbox" id="spotifyCheckbox">Spotify<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                    <span style="display: inline-block;">
+                        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_ugylqlzx.json" background="transparent" speed="1" style="width: 30px; height: 30px;" autoplay></lottie-player>
+                      </span></label>
+            </li>
+            <li>
+                <label for="nombreObjectifs">Nombre d'objectifs :</label>
+                <input type="number" id="nombreObjectifs" min="1" max="10" value="1">
+                <button onclick="ajouterObjectifs()">Ajouter</button>
+                <button onclick="afficherObjectifs()">Afficher les objectifs</button>
+                <div id="objectifsContainer"></div>
+            </li>
+            <li id="backgroundItem">
+                <label>background</label>
+                <button id="disque">disque</button><button id="beach">mer</button><button id="plage">plage</button><button id="triangles">triangles</button><button id="paillettes">paillettes</button>
+              </li>
+              <li id="minuteur_content">
+                  <label>Minuteur</label><br>
+<input type="time" id="time">
+              </li>
+        </ul>
     </div>
-    
+    <div class="content">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<lottie-player src="https://assets10.lottiefiles.com/packages/lf20_A86X9bbe4k.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;     display: flex;
+justify-content: center;
+align-items: center;
+width: 10%;
+height: 10%;
+margin: 0 auto;"  hover autoplay></lottie-player>
+        <h1>CHRONO</h1>
+        <div id="objectif_box" class="objectif_box" style="background-color: rgba(101, 101, 101, 0.375); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); border-radius: 10px; border: 1px solid white; width: 50%; margin: 0 auto; color: white; text-align: center;">
+        </div>        
+        <br>
+        <div id="chrono1">
+            <br>
+            <div id="tour" class="tour">tour : 0</div><br><br><br><br>
+         <div id="timer" class="timer">00:00:00</div>
+            <br>
+            <div id="tour_timer" class="tour-timer"></div><br>
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <lottie-player id="reset_btn" src="https://assets7.lottiefiles.com/packages/lf20_ToFHWK.json" background="transparent" speed="1" style="width: 50px; height: 50px;"></lottie-player>
+              </div><br>              
+            <button id="btnstart" class="btn">START</button>
+            <br>
+        </div>
+        <iframe id="spotifyEmbed" style="display: none; border-radius: 12px;" src="https://open.spotify.com/embed/playlist/7wN7X1iWmwLoHlL77P1D0Z?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+    <div id="weather" class="weather" style="color: white; width: 50%; margin: 0 auto; color: white; text-align: center;"></div>
+    </div>
+    <script>
+        const bouton_menu = document.querySelector(".menu_btn");
+        const sidebar = document.querySelector(".sidebar");
+      
+        bouton_menu.addEventListener('click', () => {
+          sidebar.classList.toggle('cache');
+          console.log("salut");
+        });
+
+  const spotifyCheckbox = document.getElementById('spotifyCheckbox');
+  const spotifyEmbed = document.getElementById('spotifyEmbed');
+
+  spotifyCheckbox.addEventListener('change', (event) => {
+    if (event.target.checked) {
+      spotifyEmbed.style.display = 'block';
+    } else {
+      spotifyEmbed.style.display = 'none';
+    }
+  });
+
+
+
+  var timerElement = document.getElementById('timer');
+  var startBtn = document.getElementById('btnstart');
+  var tour_text = document.getElementById('tour');
+  var tour_timer = document.getElementById('tour_timer');
+  var tour = 0;
+  var startTime = null;
+  var running = false;
+  var pausedTime = 0;
+  var objectifs = [];
+
+  startBtn.addEventListener('click', function() {
+    if (running) {
+      // Arrêter le chronomètre
+      running = false;
+      pausedTime += Date.now() - startTime;
+      startBtn.textContent = 'START';
+      tour = tour + 1;
+      tour_text.textContent = '   tour : ' + tour;
+      tour_timer.innerHTML += '<br>' + tour + '     ' + mettre_en_temps(pausedTime);
+    } else {
+      // Démarrer le chronomètre
+      running = true;
+      startTime = Date.now();
+      requestAnimationFrame(updateTimer);
+      startBtn.textContent = 'STOP';
+    }
+  });
+
+  function updateTimer() {
+  if (!running) return;
+
+  var currentTime = Date.now();
+  var elapsed = currentTime - startTime + pausedTime;
+
+  var milliseconds = elapsed % 1000;
+  var seconds = Math.floor((elapsed / 1000) % 60);
+  var minutes = Math.floor((elapsed / (1000 * 60)) % 60);
+  var hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
+
+  var time = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds) + '.' + formatMilliseconds(milliseconds);
+  timerElement.textContent = time;
+
+  requestAnimationFrame(updateTimer);
+}
+  function mettre_en_temps(time) {
+    var milliseconds = time % 1000;
+    var seconds = Math.floor((time / 1000) % 60);
+    var minutes = Math.floor((time / (1000 * 60)) % 60);
+    var hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+
+    return formatDigits(hours) + ':' + formatDigits(minutes) + ':' + formatDigits(seconds) + '.' + formatMilliseconds(milliseconds);
+  }
+
+  function formatDigits(value) {
+    return value.toString().padStart(2, '0');
+  }
+
+  function formatTime(time) {
+    return time < 10 ? '0' + time : time;
+  }
+
+  function formatMilliseconds(milliseconds) {
+    return milliseconds < 100 ? (milliseconds < 10 ? '00' + milliseconds : '0' + milliseconds) : milliseconds;
+  }
+
+function afficherObjectifs() {
+    var objectifBox = document.getElementById("objectif_box");
+    objectifBox.innerHTML = ""; // Effacer les objectifs précédents
+    var inputs = document.querySelectorAll("#objectifsContainer input[type='number']");
+    var objectifs = [];
+    inputs.forEach(function(input) {
+      var objectif = input.value;
+      var objectifItem = document.createElement("p");
+      objectifItem.textContent = objectif;
+      objectifs.push(objectif);
+      objectifBox.appendChild(objectifItem);
+    });
+  }
+  
+  function ajouterObjectifs() {
+    var nombreObjectifs = parseInt(document.getElementById("nombreObjectifs").value);
+    var objectifsContainer = document.getElementById("objectifsContainer");
+    objectifsContainer.innerHTML = ""; // Effacer les champs existants
+    var objectifBox = document.getElementById("objectif_box");
+    objectifBox.innerHTML = ""; // Effacer les objectifs précédents
+    objectifs = []; // Réinitialiser le tableau des objectifs
+    for (var i = 1; i <= nombreObjectifs; i++) {
+        var label = document.createElement("label");
+        label.textContent = "Objectif " + i + " :";
+
+        var input = document.createElement("input");
+        input.type = "number";
+        input.name = "objectif" + i;
+
+        var objectifItem = document.createElement("p");
+        objectifItem.textContent = ""; // Initialiser le contenu avec une chaîne vide
+
+        input.addEventListener('input', function(event) {
+            objectifItem.textContent = event.target.value; // Mettre à jour le contenu de objectifItem avec la nouvelle valeur de l'input
+        });
+        var objectif = {
+            temps: parseInt(input.value),
+            element: objectifItem
+        };
+
+        objectifs.push(objectif); // Ajouter l'objectif au tableau
+
+        objectifsContainer.appendChild(label);
+        objectifsContainer.appendChild(input);
+        objectifsContainer.appendChild(document.createElement("br"));
+
+        objectifBox.appendChild(objectifItem); // Ajouter l'élément objectif à objectifBox
+    }
+}
+function ajaxRequest(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.open('GET', url, true);
+            xhr.send();
+        }
+
+        // Récupérer les données météo via la page meteo.php
+        ajaxRequest('meteo.php', function(response) {
+            var weatherElement = document.getElementById('weather');
+            weatherElement.textContent = response;
+        });
+
+        var lottiePlayer = document.getElementById('reset_btn');
+lottiePlayer.addEventListener('click', function() {
+  lottiePlayer.stop();
+  lottiePlayer.play();
+  console.log("L'utilisateur a cliqué sur reset.");
+
+  // Réinitialiser le temps
+  startTime = null;
+  running = false;
+  pausedTime = 0;
+  timerElement.textContent = '00:00:00'; // Réinitialiser l'affichage du temps
+});
+
+//------------------PARTIE BACKGROUND-------------------
+var disque = document.getElementById('disque');
+var beach = document.getElementById('beach');
+var plage = document.getElementById('plage');
+var triangles = document.getElementById('triangles');
+var paillettes = document.getElementById('paillettes');
+        var bodyElement = document.body;
+        const video = document.getElementById('video-background');
+
+        disque.addEventListener('click', function() {
+            video.src = 'video/video_disque.mp4';
+        });
+        beach.addEventListener('click', function() {
+            video.src = 'video/video_sea.mp4';
+        });  
+        plage.addEventListener('click', function() {
+            video.src = 'video/video_beach.mp4';
+        });  
+        triangles.addEventListener('click', function() {
+            video.src = 'video/video_triangles.mp4';
+        });  
+        paillettes.addEventListener('click', function() {
+            video.src = 'video/video_paillettes.mp4';
+        });  
+//------------------------------------------------------
+//---------------------MINUTEUR-------------------------
+
+
+
+
+
+//------------------------------------------------------
+//---------------------HORLOGE--------------------------
+
+
+function updateClock() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+
+      // Ajoute un zéro devant les chiffres si nécessaire
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      var time = hours + ':' + minutes + ':' + seconds;
+
+      document.getElementById('horloge').textContent = time;
+    }
+
+    // Met à jour l'horloge toutes les secondes
+    setInterval(updateClock, 1000);
+
+
+//------------------------------------------------------
+    </script>
 </body>
 </html>
